@@ -16,30 +16,69 @@
       p.style.color = '#BADA55';
       p.style.fontSize = '50px';
     }
+    //break on > attribute modification
 
     // Regular
+    console.log("Hello");
 
     // Interpolated
 
+    //PHP
+    console.log("Hello. I'm %s","danny");
+
+    //ES6 version
+    let name = "danny";
+    console.log(`Hello. I'm ${name}`);
+
     // Styled
+    console.log("%csome awesome text","color: green; font-size: 20px;");
 
     // warning!
+    console.warn("watchout!!");
 
     // Error :|
+    console.error("something wrong");
 
     // Info
+    console.info("在非洲，每分鐘就有六十秒過去");
 
     // Testing
+    const el = document.querySelector("p");
+    console.assert(el.classList.contains("ouch"), "That's wrong!");
+    //false >> 執行第二參數, true >> nothinf happened
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.log(el);
+    console.dir(el);
 
     // Grouping together
+    dogs.forEach(dog =>{
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age*7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    })
 
     // counting
+    console.count("a");
+    console.count("b");
+    console.count("b");
+    console.count("a");
+    console.count("b");
+    console.count("a");
 
     // timing
+    console.time('fetching data');
+      fetch('https://api.github.com/users/wesbos')
+        .then(data => data.json())
+        .then(data => {
+          console.timeEnd('fetching data');
+          console.table(data);
+        });
 
   </script>
 </body>

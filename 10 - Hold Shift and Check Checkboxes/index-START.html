@@ -99,6 +99,27 @@
   </div>
 
 <script>
+  //沒有其他多餘的標籤也能取出所有checkbox陣列?
+  const checkboxs = document.querySelectorAll(".inbox input[type='checkbox']")
+
+  //如何知道點下去的checkbox是第幾個?
+  let lastchecked;
+  function handlecheck(e) {
+    let inBetween = false;
+
+    if (e.shiftKey && this.checked) {
+      checkboxs.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastchecked) {
+          inBetween = !inBetween;
+        }
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      })
+    }
+    lastchecked = this;
+  }
+  checkboxs.forEach(checkbox => checkbox.addEventListener("click",handlecheck))
 </script>
 </body>
 </html>
