@@ -8,9 +8,39 @@
 
   <script>
     // start with strings, numbers and booleans
+    let num = 10;
+    let num2 = num;
+    num2 = 20;
+    // console.log(num,num2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    let players2 = players;
+    // players2[0] = 'danny';
+    // console.log(players,players2);
+    
+    let players3 = players.slice()
+    players3[0] = 'danny';
+    // console.log(players,players3);
+    
+    let players4 = [].concat(players);
+    players4[0] = 'danny';
+    // console.log(players,players4);
+    
+    let players5 = [...players];
+    players5[0] = 'danny';
+    // console.log(players,players5);
+    
+    let players6 = Array.from(players);
+    players6[0] = 'danny';
+    // console.log(players,players6);
+
+    const deepArr = ['a','b','c',['1','2','3']]
+    let deepArr2 = deepArr.toString();
+    // deepArr2[3][0] = 9;
+    console.log(deepArr2);
+    
 
     // and we want to make a copy of it.
 
@@ -42,6 +72,18 @@
       age: 80
     };
 
+    let person2 = person;
+    // person2.name = 'danny';
+    // console.log(person,person2);
+
+    let person3 = Object.assign({},person);
+    person3.name = 'danny';
+    // console.log(person, person3);
+    
+    let person4 = {...person}
+    person4.name = 'danny';
+    // console.log(person, person4);
+
     // and think we make a copy:
 
     // how do we take a copy instead?
@@ -50,6 +92,17 @@
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
+    const deepperson = {
+        name: 'Wes Bos',
+        age: 80,
+        social: {
+          twitter: '@wesbos',
+          facebook: 'Wesbos'
+        }
+      };
+    let deepperson2 = JSON.parse(JSON.stringify(deepperson));
+    deepperson2.social.facebook = 'danny';
+    console.log(deepperson2);
   </script>
 
 </body>

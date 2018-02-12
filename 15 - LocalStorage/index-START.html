@@ -24,11 +24,53 @@
       <input type="submit" value="+ Add Item">
     </form>
   </div>
+  
 
 <script>
+  //1.儲存輸入項目
+  //2.動態產生html
+  //3.localstorage對接
+  //4.checkbox toggle
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem("list")) || [];
+  printplate(items, itemsList);
+
+  function additems(e) {
+    e.preventDefault();
+    const text = (this.querySelector('input[type="text"]')).value;
+    const item = {
+      text: text,
+      done: false
+    }
+    items.push(item);
+    localStorage.setItem("list", JSON.stringify(items));
+
+    printplate(items, itemsList);
+    addItems.reset();
+  }
+
+  function printplate(plates, plateList) {//彈性設計
+    itemsList.innerHTML = plates.map((plate ,i) => {
+      return `
+      <li>
+        <input type="checkbox" data-index="${i}" id="item${i}" ${plate.done? 'checked': ''}>
+        <label for="item${i}">${plate.text}</label>
+      </li>
+      `;
+    }).join('');
+  }
+
+  function toggledone(e) {
+    if (e.target.nodeName != "INPUT") return;
+    const index = e.target.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem("list", JSON.stringify(items));
+    printplate(items, itemsList);
+  }
+
+  addItems.addEventListener("submit",additems);
+  itemsList.addEventListener("click",toggledone);
 
 </script>
 
