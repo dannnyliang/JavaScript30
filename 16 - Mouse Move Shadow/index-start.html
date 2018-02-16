@@ -31,10 +31,32 @@
   h1 {
     text-shadow: 10px 10px 0 rgba(0,0,0,1);
     font-size: 100px;
+    border: solid 5px red;
   }
   </style>
 
 <script>
+  const hero = document.querySelector(".hero");
+  const h1 = document.querySelector("h1");
+  const body = document.querySelector("body");
+  const walk = 30;
+
+  function Shadow(e) {
+    const width = hero.offsetWidth;
+    const height = hero.offsetHeight;
+    let x = e.offsetX;
+    let y = e.offsetY;
+
+    if (this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    const xwalk = Math.round((x / width * walk) - walk/2);
+    const ywalk = Math.round((y / height * walk) - walk/2);
+    h1.style.textShadow = `${-xwalk}px ${-ywalk}px 5px rgb(30,30,30)`;
+  }
+  hero.addEventListener("mousemove",Shadow);
 </script>
 </body>
 </html>
