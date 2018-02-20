@@ -182,6 +182,23 @@
     </li>
   </ul>
 <script>
+  const datatime = Array.from(document.querySelectorAll("[data-time]"));
+
+  const counttotal = datatime
+    .map(list => list.dataset.time)
+    .map(time => {
+      const [min,sec] = time.split(":").map(parseFloat);
+      return (min*60) + sec;
+    })
+    .reduce(function (total, time) {
+      return total += time;
+    })
+
+  const hour = Math.floor(counttotal / 3600);
+  const min = Math.floor((counttotal - hour*3600) / 60);
+  const sec = counttotal-hour*3600-min*60;
+
+  console.log(`總共 :　${hour}時${min}分${sec}秒`);
 </script>
 </body>
 </html>
