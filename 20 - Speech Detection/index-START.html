@@ -8,9 +8,38 @@
 
   <div class="words" contenteditable>
   </div>
+  
 
 <script>
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  let p = document.createElement('p');
+  const words = document.querySelector('.words');
+  words.appendChild(p);
+
+  recognition.addEventListener('result',e => {
+    console.log(e.results);
+    const transcript = Array.from(e.results)
+      .map(result => result[0])//剝一層
+      .map(result => result.transcript)//抓出第二層的文字
+      .join('')
+
+    p.textContent = transcript;
+    if (transcript.includes('go to Google')) {
+      window.location.href = 'http://www.google.com'
+    }
+    if (e.results[0].isFinal) {
+      p = document.createElement('p');
+      words.appendChild(p);
+    }
+  })
+
+  recognition.addEventListener('end',recognition.start)
+  recognition.start();
 
 
 </script>
