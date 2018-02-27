@@ -23,6 +23,10 @@ body {
   transition: transform 0.5s;
 }
 
+.nav-fixed .site-wrap {
+  transform: scale(1);
+}
+
 header {
   text-align: center;
   height:50vh;
@@ -40,11 +44,12 @@ h1 {
 }
 
 nav {
+  position: sticky;
   background:black;
   top:0;
   width: 100%;
   transition:all 0.5s;
-  position: relative;
+  /* position: relative; */
   z-index: 1;
 }
 
@@ -70,6 +75,10 @@ li.logo {
   transition: all .5s;
   font-weight: 600;
   font-size: 30px;
+}
+
+.nav-fixed li.logo {
+  max-width: 500px;
 }
 
 li.logo a {

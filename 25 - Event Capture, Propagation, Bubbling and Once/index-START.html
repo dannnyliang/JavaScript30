@@ -6,9 +6,9 @@
 </head>
 <body class="bod">
 
-  <div class="one">
-    <div class="two">
-      <div class="three">
+  <div class="one">One
+    <div class="two">Two
+      <div class="three">Three
       </div>
     </div>
   </div>
@@ -16,6 +16,7 @@
 <style>
   html {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
   }
   *, *:before, *:after { box-sizing: inherit; }
 
@@ -39,6 +40,36 @@
 
 <button></button>
 <script>
+
+  // capture
+  // true >> 一邊蒐集元素同時執行function
+  // 抓取順序: one > two > three  印出順序: one > two > three
+
+  // false >> (default) 從外而內蒐集有包含點選位置的元素，蒐集完後要執行時由內層開始執行function
+  // 抓取順序: one > two > three  印出順序: three > two > one
+
+  // stopPropagation();
+  // function只執行一次
+
+  // once
+  // eventlistener只執行一次
+
+  const blocks = document.querySelectorAll('div');
+  const btn = document.querySelector('button');
+
+  function popText(e) {
+    e.stopPropagation();
+    // console.log(this.classList.value);
+    console.log(this);
+  }
+
+  blocks.forEach(block => block.addEventListener('click', popText, {
+    capture: false
+  }))
+
+  btn.addEventListener('click',() => console.log('hi'), {
+    once: true
+  })
 
 </script>
 </body>
