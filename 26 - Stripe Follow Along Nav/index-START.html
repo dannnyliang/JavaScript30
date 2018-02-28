@@ -214,6 +214,43 @@
 </style>
 
 <script>
+  const lists  = document.querySelectorAll('li');
+  const back = document.querySelector('.dropdownBackground');
+  const nav = document.querySelector('.top');
+
+  function enterli(params) {
+    this.classList.add('trigger-enter');
+    back.classList.add('open')
+    setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active')
+    , 150);
+
+    const dropdown = this.querySelector('.dropdown');
+    const dropCoords = dropdown.getBoundingClientRect();
+    const navCoords = nav.getBoundingClientRect();
+
+    const coords = {
+      width: dropCoords.width,
+      height: dropCoords.height,
+      top: dropCoords.top - navCoords.top,
+      left: dropCoords.left - navCoords.left
+    };
+    // background 是在nav中的元素，所以當nav移動，background的起始位置也被移動，此時如果套上
+    // 正確的座標，等同是被偏移兩次(起始位置移動 + 正確座標)
+
+    back.style.width = coords.width + 'px';
+    back.style.height = coords.height + 'px';
+    back.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+
+  }
+
+  function leaveli(params) {
+    this.classList.remove('trigger-enter','trigger-enter-active');
+    back.classList.remove('open');
+  }
+
+  lists.forEach(list => list.addEventListener('mouseenter',enterli));
+  lists.forEach(list => list.addEventListener('mouseleave',leaveli));
+
 </script>
 
 </body>
