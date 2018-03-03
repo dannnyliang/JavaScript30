@@ -15,6 +15,21 @@
   </div>
 
 <script>
+  const speedshell = document.querySelector('.speed');
+  const speedBar = speedshell .querySelector('.speed-bar');
+  const video = document.querySelector('video');
+
+  speedshell.addEventListener('mousemove',function (e) {
+    const percent = Math.round(e.offsetY / speedshell.offsetHeight * 100);
+    speedBar.style.height = `${percent}%`;
+    const min = 0.4;
+    const max = 4;
+
+    const barvalue = min + (max - min) * percent / 100
+    speedBar.innerHTML = `${barvalue.toFixed(2)}x`;
+
+    video.playbackRate = barvalue;
+  })
 </script>
 </body>
 </html>
